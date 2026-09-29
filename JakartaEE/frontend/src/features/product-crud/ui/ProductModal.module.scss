@@ -1,0 +1,51 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 14px;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+
+  &.flex2 {
+    flex: 2;
+  }
+
+  label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-main);
+  }
+
+  input, select, textarea {
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    font-size: 14px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-focus);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+}

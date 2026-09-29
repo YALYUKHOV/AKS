@@ -1,0 +1,86 @@
+.pageHeader {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 900px;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+}
+
+.badge {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: var(--bg-hover);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+}
+
+.connector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 28px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+}

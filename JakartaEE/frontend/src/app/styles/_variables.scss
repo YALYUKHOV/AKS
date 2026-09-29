@@ -1,0 +1,89 @@
+$primary: #FF7A00;
+$primary-hover: #E66D00;
+$primary-light: #FFF1EB;
+$primary-focus: rgba(255, 122, 0, 0.25);
+
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-family-mono: 'JetBrains Mono', monospace;
+
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
+$radius-xl: 18px;
+$radius-full: 9999px;
+
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s ease;
+
+$shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04);
+$shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+$shadow-lg: 0 12px 28px rgba(16, 24, 40, 0.12);
+$shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+
+:root {
+  --primary: #FF7A00;
+  --primary-hover: #E66D00;
+  --primary-light: #FFF1EB;
+  --primary-focus: rgba(255, 122, 0, 0.25);
+
+  --bg-app: #F5F6F8;
+  --bg-sidebar: #FFFFFF;
+  --bg-header: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F8F9FA;
+  --bg-hover: #F2F4F7;
+  --bg-table-header: #F9FAFB;
+
+  --text-main: #1D2939;
+  --text-muted: #667085;
+  --text-dim: #98A2B3;
+  --text-inverse: #FFFFFF;
+
+  --border-color: #EAECF0;
+  --border-subtle: #F2F4F7;
+
+  --status-new-bg: #FEF3C7;
+  --status-new-text: #B45309;
+  --status-active-bg: #DCFCE7;
+  --status-active-text: #15803D;
+  --status-danger-bg: #FEE2E2;
+  --status-danger-text: #B91C1C;
+  --status-info-bg: #DBEAFE;
+  --status-info-text: #1D4ED8;
+
+  --badge-counter-bg: #E02424;
+  --badge-counter-text: #FFFFFF;
+
+  --shadow-card: 0 1px 3px rgba(16, 24, 40, 0.05);
+}
+
+[data-theme="dark"] {
+  --bg-app: #121418;
+  --bg-sidebar: #181B20;
+  --bg-header: #181B20;
+  --bg-card: #1D2128;
+  --bg-subtle: #242932;
+  --bg-hover: #2A303A;
+  --bg-table-header: #1E232B;
+
+  --text-main: #F3F4F6;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  --text-inverse: #FFFFFF;
+
+  --border-color: #2D333F;
+  --border-subtle: #252A34;
+
+  --primary-light: rgba(255, 122, 0, 0.15);
+
+  --status-new-bg: rgba(245, 158, 11, 0.2);
+  --status-new-text: #FBBF24;
+  --status-active-bg: rgba(16, 185, 129, 0.2);
+  --status-active-text: #34D399;
+  --status-danger-bg: rgba(239, 68, 68, 0.2);
+  --status-danger-text: #F87171;
+  --status-info-bg: rgba(59, 130, 246, 0.2);
+  --status-info-text: #60A5FA;
+
+  --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.25);
+}

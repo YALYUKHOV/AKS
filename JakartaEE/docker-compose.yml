@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: aks-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: aks_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d aks_db"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    networks:
+      - aks-net
+
+  glassfish:
+    image: omnifish/glassfish:latest
+    container_name: aks-glassfish
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "4848:4848"
+    environment:
+      AS_ADMIN_PASSWORD: admin
+    volumes:
+      - ./glassfish/entrypoint.sh:/entrypoint.sh:ro
+      - ./glassfish/lib/postgresql-42.7.3.jar:/glassfish-config/postgresql-42.7.3.jar:ro
+      - ./target/aks-app.war:/deployments/aks-app.war:ro
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - aks-net
+
+volumes:
+  postgres_data:
+
+networks:
+  aks-net:
+    driver: bridge

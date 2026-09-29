@@ -1,0 +1,29 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'reset' as *;
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--bg-app);
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100vh;
+  overflow-y: auto;
+  @include custom-scrollbar;
+}
+
+.content-container {
+  flex: 1;
+  padding: 24px 32px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
