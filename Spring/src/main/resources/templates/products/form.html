@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${productId == null} ? 'Новый товар' : 'Редактирование товара')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('products')}"></header>
+
+<main class="container container--narrow">
+    <h1 th:text="${productId == null} ? 'Новый товар' : 'Редактирование товара'">Товар</h1>
+
+    <form th:object="${form}" method="post" class="form"
+          th:action="${productId == null} ? @{/products} : @{/products/{id}(id=${productId})}">
+
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert--error">
+            <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        </div>
+
+        <div class="field">
+            <label for="name">Название *</label>
+            <input id="name" type="text" th:field="*{name}" maxlength="150" th:errorclass="invalid">
+            <div class="field__error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div class="field">
+            <label for="sku">Артикул (SKU) *</label>
+            <input id="sku" type="text" th:field="*{sku}" maxlength="50" th:errorclass="invalid">
+            <div class="field__error" th:if="${#fields.hasErrors('sku')}" th:errors="*{sku}"></div>
+        </div>
+
+        <div class="field">
+            <label for="categoryId">Категория *</label>
+            <select id="categoryId" th:field="*{categoryId}" th:errorclass="invalid">
+                <option value="">— выберите —</option>
+                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}">Категория</option>
+            </select>
+            <div class="field__error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></div>
+        </div>
+
+        <div class="field-row">
+            <div class="field">
+                <label for="price">Цена, ₽ *</label>
+                <input id="price" type="number" step="0.01" min="0" th:field="*{price}" th:errorclass="invalid">
+                <div class="field__error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+            </div>
+            <div class="field">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" type="number" step="1" min="0" th:field="*{quantity}" th:errorclass="invalid">
+                <div class="field__error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="description">Описание</label>
+            <textarea id="description" rows="4" th:field="*{description}"></textarea>
+        </div>
+
+        <div class="form__actions">
+            <a th:href="@{/products}" class="btn">Отмена</a>
+            <button type="submit" class="btn btn--primary">Сохранить</button>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

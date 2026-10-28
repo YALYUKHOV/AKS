@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Обзор')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('home')}"></header>
+
+<main class="container">
+    <h1>Обзор каталога</h1>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="stat__label">Категорий</div>
+            <div class="stat__value" th:text="${categoriesCount}">0</div>
+        </div>
+        <div class="stat">
+            <div class="stat__label">Товаров</div>
+            <div class="stat__value" th:text="${productsCount}">0</div>
+        </div>
+        <div class="stat">
+            <div class="stat__label">Единиц на складе</div>
+            <div class="stat__value" th:text="${totalQuantity}">0</div>
+        </div>
+        <div class="stat">
+            <div class="stat__label">Стоимость склада</div>
+            <div class="stat__value" th:text="${#numbers.formatDecimal(totalValue, 1, 'WHITESPACE', 2, 'COMMA')} + ' ₽'">0 ₽</div>
+        </div>
+    </div>
+
+    <h2>Категории</h2>
+    <div class="cards">
+        <a th:each="c : ${categories}" th:href="@{/products(categoryId=${c.id})}" class="card">
+            <div class="card__title" th:text="${c.name}">Категория</div>
+            <div class="card__text" th:text="${c.description}">Описание</div>
+            <div class="card__meta" th:text="'Товаров: ' + ${productCounts.getOrDefault(c.id, 0L)}">Товаров: 0</div>
+        </a>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

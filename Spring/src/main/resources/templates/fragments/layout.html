@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' · AKS Spring'">AKS Spring</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:fragment="header(active)" class="header">
+    <div class="container header__inner">
+        <a th:href="@{/}" class="logo">AKS<span>Store</span></a>
+        <nav class="nav">
+            <a th:href="@{/}" th:classappend="${active == 'home'} ? 'active'">Обзор</a>
+            <a th:href="@{/products}" th:classappend="${active == 'products'} ? 'active'">Товары</a>
+            <a th:href="@{/categories}" th:classappend="${active == 'categories'} ? 'active'">Категории</a>
+        </nav>
+    </div>
+</header>
+
+<div th:fragment="flash">
+    <div th:if="${success}" class="alert alert--success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert--error" th:text="${error}"></div>
+</div>
+
+<footer th:fragment="footer" class="footer">
+    <div class="container">Практическая работа №2 · Spring MVC + Spring Data JPA (Hibernate) + PostgreSQL</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Категории')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('categories')}"></header>
+
+<main class="container">
+    <div class="page-head">
+        <h1>Категории</h1>
+        <a th:href="@{/categories/new}" class="btn btn--primary">+ Добавить категорию</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: flash}"></div>
+
+    <div th:if="${#lists.isEmpty(categories)}" class="empty">Категорий пока нет</div>
+
+    <div th:unless="${#lists.isEmpty(categories)}" class="table-wrap">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th class="num">Товаров</th>
+                <th>Создана</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${categories}" th:with="cnt=${productCounts.getOrDefault(c.id, 0L)}">
+                <td th:text="${c.id}">1</td>
+                <td>
+                    <a th:href="@{/products(categoryId=${c.id})}" class="cell-title" th:text="${c.name}">Название</a>
+                </td>
+                <td class="cell-sub" th:text="${c.description}">Описание</td>
+                <td class="num" th:text="${cnt}">0</td>
+                <td th:text="${c.createdAt != null} ? ${#temporals.format(c.createdAt, 'dd.MM.yyyy HH:mm')} : '—'">—</td>
+                <td class="actions">
+                    <a th:href="@{/categories/{id}/edit(id=${c.id})}" class="btn btn--sm">Изменить</a>
+                    <form th:action="@{/categories/{id}/delete(id=${c.id})}" method="post"
+                          th:data-name="${c.name}"
+                          onsubmit="return confirm('Удалить категорию «' + this.dataset.name + '»?')">
+                        <button type="submit" class="btn btn--sm btn--danger"
+                                th:disabled="${cnt > 0}"
+                                th:title="${cnt > 0} ? 'Сначала удалите или перенесите товары этой категории'">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

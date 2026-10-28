@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${categoryId == null} ? 'Новая категория' : 'Редактирование категории')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('categories')}"></header>
+
+<main class="container container--narrow">
+    <h1 th:text="${categoryId == null} ? 'Новая категория' : 'Редактирование категории'">Категория</h1>
+
+    <form th:object="${form}" method="post" class="form"
+          th:action="${categoryId == null} ? @{/categories} : @{/categories/{id}(id=${categoryId})}">
+
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert--error">
+            <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        </div>
+
+        <div class="field">
+            <label for="name">Название *</label>
+            <input id="name" type="text" th:field="*{name}" maxlength="100" th:errorclass="invalid">
+            <div class="field__error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div class="field">
+            <label for="description">Описание</label>
+            <textarea id="description" rows="4" th:field="*{description}"></textarea>
+        </div>
+
+        <div class="form__actions">
+            <a th:href="@{/categories}" class="btn">Отмена</a>
+            <button type="submit" class="btn btn--primary">Сохранить</button>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

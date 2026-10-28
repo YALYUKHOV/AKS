@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Товары')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('products')}"></header>
+
+<main class="container">
+    <div class="page-head">
+        <h1>Товары</h1>
+        <a th:href="@{/products/new(categoryId=${selectedCategoryId})}" class="btn btn--primary">+ Добавить товар</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: flash}"></div>
+
+    <form th:action="@{/products}" method="get" class="filters">
+        <label for="categoryId">Категория:</label>
+        <select id="categoryId" name="categoryId" onchange="this.form.submit()">
+            <option value="">Все категории</option>
+            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                    th:selected="${c.id == selectedCategoryId}">Категория</option>
+        </select>
+        <noscript><button type="submit" class="btn">Применить</button></noscript>
+    </form>
+
+    <div th:if="${#lists.isEmpty(products)}" class="empty">Товаров пока нет</div>
+
+    <div th:unless="${#lists.isEmpty(products)}" class="table-wrap">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Артикул</th>
+                <th>Название</th>
+                <th>Категория</th>
+                <th class="num">Цена, ₽</th>
+                <th class="num">Кол-во</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${products}">
+                <td th:text="${p.id}">1</td>
+                <td><code th:text="${p.sku}">SKU</code></td>
+                <td>
+                    <div class="cell-title" th:text="${p.name}">Название</div>
+                    <div class="cell-sub" th:text="${p.description}">Описание</div>
+                </td>
+                <td th:text="${p.category.name}">Категория</td>
+                <td class="num" th:text="${#numbers.formatDecimal(p.price, 1, 'WHITESPACE', 2, 'COMMA')}">0,00</td>
+                <td class="num">
+                    <span class="badge"
+                          th:classappend="${p.quantity == 0} ? 'badge--danger' : (${p.quantity < 10} ? 'badge--warn' : 'badge--ok')"
+                          th:text="${p.quantity}">0</span>
+                </td>
+                <td class="actions">
+                    <a th:href="@{/products/{id}/edit(id=${p.id})}" class="btn btn--sm">Изменить</a>
+                    <form th:action="@{/products/{id}/delete(id=${p.id})}" method="post"
+                          th:data-name="${p.name}"
+                          onsubmit="return confirm('Удалить товар «' + this.dataset.name + '»?')">
+                        <button type="submit" class="btn btn--sm btn--danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
